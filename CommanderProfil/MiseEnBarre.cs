@@ -1,7 +1,7 @@
 using LogDebugging;
-using Outils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace CommanderProfils
@@ -51,6 +51,8 @@ namespace CommanderProfils
             {
                 //String NomFichier = "MiseEnBarre";
 
+                String Complet = "";
+
                 switch (TypeSortie)
                 {
                     case eTypeSortie.ListeDebit:
@@ -60,37 +62,35 @@ namespace CommanderProfils
                             String ResumeBarre = ListeBarre.ResumeNbBarre();
                             String ResumeListeDebit = ListeBarre.ResumeListeDebit();
 
-                            String Complet = ResumeBarre + "\r\n\r\n" + ResumeListeDebit;
+                            Complet = ResumeBarre + "\r\n\r\n" + ResumeListeDebit;
+
+                            Complet += "\r\n\r\n" + "Nb d'éléments : " + _listeElement.NbElement;
+                            Complet += "\r\n" + "Nb de barres : " + ListeBarre.NbBarre;
 
                             Log.Message(Complet);
-
-                            //CheminFichier = Path.Combine(MdlBase.eDossier(), NomFichier + " - Liste de débit.txt");
-
-                            //StreamWriter s = new StreamWriter(CheminFichier);
-                            //s.Write(Complet);
-                            //s.Close();
-
-                            Log.Message("Nb d'éléments " + _listeElement.NbElement);
-                            Log.Message("Nb de barres " + ListeBarre.NbBarre);
                         }
                         break;
                     case eTypeSortie.ListeBarre:
                         {
                             String ResumeListeBarre = _listeElement.ResumeListeBarre();
                             
-                            //CheminFichier = Path.Combine(MdlBase.eDossier(), NomFichier + " - Liste des barres.txt");
-                            String Complet = ResumeListeBarre;
+                            Complet = ResumeListeBarre;
 
-                            Log.Message(ResumeListeBarre);
-
-                            //StreamWriter s = new StreamWriter(CheminFichier);
-                            //s.Write(Complet);
-                            //s.Close();
+                            Log.Message(Complet);
                         }
                         break;
                     default:
                         break;
                 }
+
+                CheminFichier = Path.GetTempFileName();
+
+                StreamWriter s = new StreamWriter(CheminFichier);
+                s.Write(Complet);
+                s.Close();
+
+                Process.Start("notepad.exe", CheminFichier);
+
             }
             catch (Exception e)
             {
