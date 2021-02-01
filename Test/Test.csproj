@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B116FC8E-B8E6-422A-A872-8D12EBA213A2}</ProjectGuid>
+    <ProjectGuid>{E8799148-2D11-4C9E-B2FE-9888CC0CD611}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CommanderProfil</RootNamespace>
-    <AssemblyName>CommanderProfil</AssemblyName>
+    <RootNamespace>Test</RootNamespace>
+    <AssemblyName>Test</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,16 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <ApplicationIcon>Test.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>CommanderProfil.ico</ApplicationIcon>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,27 +48,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TopSolid.Cad.Design.Automating">
-      <HintPath>C:\Program Files\TOPSOLID\TopSolid 7.14\bin\TopSolid.Cad.Design.Automating.dll</HintPath>
-    </Reference>
-    <Reference Include="TopSolid.Cad.Drafting.Automating">
-      <HintPath>C:\Program Files\TOPSOLID\TopSolid 7.14\bin\TopSolid.Cad.Drafting.Automating.dll</HintPath>
-    </Reference>
     <Reference Include="TopSolid.Kernel.Automating">
       <HintPath>C:\Program Files\TOPSOLID\TopSolid 7.14\bin\TopSolid.Kernel.Automating.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MiseEnBarre.cs" />
-    <Compile Include="CommanderProfil.cs" />
-    <None Include="log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Outils Ts\Outils.csproj">
@@ -79,7 +69,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CommanderProfil.ico" />
+    <Content Include="Test.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
