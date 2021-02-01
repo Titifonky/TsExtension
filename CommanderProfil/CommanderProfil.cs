@@ -1,4 +1,5 @@
-﻿using Outils;
+﻿using LogDebugging;
+using Outils;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -24,11 +25,11 @@ namespace CommanderProfils
             if (docId.GetTypeDoc() != TypeDoc.Nomenclature) return;
 
             var rr = Bms.GetRootRow(docId);
-            
+
             if (rr == 0) return;
 
             var cc = Bms.GetColumnCount(docId);
-            
+
             if (cc == 0) return;
 
             // On récupère le numéro des colonnes
@@ -45,19 +46,28 @@ namespace CommanderProfils
             for (int i = 0; i < cc; i++)
             {
                 var cd = Bms.GetColumnPropertyDefinition(docId, i);
-                
+
                 if (cd.IsEmpty) continue;
+
+                if (Ts.Pdm.SearchPropertyDefinitionInfo(cd, out string dn, out string n, out _) &&
+                    dn == "Document"
+                    && n == "Description nomenclature du produit")
+                {
+                    idProfil = i;
+                    continue;
+                }
 
                 switch (cd.Domain)
                 {
                     case "$TopSolid.Cad.Design.DB":
-                        switch(cd.Name)
+                        switch (cd.Name)
                         {
                             case "FirstTrimmingAngle":
                                 idA = i; break;
                             case "SecondTrimmingAngle":
                                 idB = i; break;
-                        } break;
+                        }
+                        break;
                     case "$TopSolid.Cad.Design.DB.Bom":
                         switch (cd.Name)
                         {
@@ -67,13 +77,15 @@ namespace CommanderProfils
                                 idRep = i; break;
                             case "Quantity":
                                 idQte = i; break;
-                        } break;
+                        }
+                        break;
                     case "$TopSolid.Cad.Design.DB.Materials":
                         switch (cd.Name)
                         {
                             case "Description":
                                 idMatiere = i; break;
-                        } break;
+                        }
+                        break;
                     case "$TopSolid.Kernel.TX.Properties":
                         switch (cd.Name)
                         {
@@ -81,7 +93,8 @@ namespace CommanderProfils
                                 idProfil = i; break;
                             case "Length":
                                 idLg = i; break;
-                        } break;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -107,14 +120,14 @@ namespace CommanderProfils
                 Bms.GetRowContents(docId, idLigne, out List<Property> ListeProp, out List<String> ListeTexte);
 
                 MiseEnBarre.AjouterElement(
-                    ListeTexte[idQte].SupprimerUnites().eToInteger(),
-                    ListeTexte[idNo],
-                    ListeTexte[idRep],
-                    ListeTexte[idMatiere],
-                    ListeTexte[idProfil],
-                    ListeTexte[idLg].SupprimerUnites().eToDouble(),
-                    ListeTexte[idA].SupprimerUnites().eToDouble(),
-                    ListeTexte[idB].SupprimerUnites().eToDouble()
+                    idQte < 0 ? -1 : (String.IsNullOrEmpty(ListeTexte[idQte]) ? "0" : ListeTexte[idQte]).SupprimerUnites().eToInteger(),
+                    idNo < 0 ? "" : ListeTexte[idNo],
+                    idRep < 0 ? "" : ListeTexte[idRep],
+                    idMatiere < 0 ? "" : ListeTexte[idMatiere],
+                    idProfil < 0 ? "" : ListeTexte[idProfil],
+                    idLg < 0 ? -1 : (String.IsNullOrEmpty(ListeTexte[idLg]) ? "0" : ListeTexte[idLg]).SupprimerUnites().eToDouble(),
+                    idA < 0 ? -1 : (String.IsNullOrEmpty(ListeTexte[idA]) ? "0" : ListeTexte[idA]).SupprimerUnites().eToDouble(),
+                    idB < 0 ? -1 : (String.IsNullOrEmpty(ListeTexte[idB]) ? "0" : ListeTexte[idB]).SupprimerUnites().eToDouble()
                     );
             }
 
