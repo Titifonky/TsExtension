@@ -13,7 +13,7 @@ namespace InfosProjet
     using Ts = TopSolidHost;
     using Tsd = TopSolidDesignHost;
 
-    class Commande : BoutonBase
+    class InfosProjet : BoutonBase
     {
         private static DocumentId docId;
 
@@ -24,6 +24,7 @@ namespace InfosProjet
         private static String NoChantier = "";
         private static String NomChantier = "";
         private static String Lot = "";
+        private static String Article = "";
 
         static void Main(string[] args)
         {
@@ -69,7 +70,7 @@ namespace InfosProjet
                     }
                 }
 
-                //System.Windows.Forms.MessageBox.Show("N1 " + NomDossierN1 + Environment.NewLine + "N2 " + NomDossierN2 + Environment.NewLine + "N3 " + NomDossierN3);
+                //System.Windows.Forms.MessageBox.Show("N0 " + NomDossierN0 + Environment.NewLine + "N1 " + NomDossierN1 + Environment.NewLine + "N2 " + NomDossierN2 + Environment.NewLine + "N3 " + NomDossierN3);
 
                 // Rècupère les infos
 
@@ -79,11 +80,13 @@ namespace InfosProjet
                     RemplirChantier(NomDossierN2);
                     if (String.IsNullOrEmpty(Lot))
                         RemplirLot(NomDossierN1);
+                    RemplirArticle(NomDossierN0);
                 }
                 else if (!String.IsNullOrEmpty(NomDossierN2))
                 {
                     RemplirClient(NomDossierN2);
                     RemplirChantier(NomDossierN1);
+                    RemplirArticle(NomDossierN0);
                 }
                 else if (!String.IsNullOrEmpty(NomDossierN1))
                 {
@@ -146,6 +149,7 @@ namespace InfosProjet
 
                     TopSolidHost.Documents.EnsureIsDirty(ref docId);
 
+                    ProprieteUtilisateur("Article", Article);
                     ProprieteUtilisateur("Lot", Lot);
                     ProprieteUtilisateur("Intitulé de la société", "Métallerie Ferronnerie du Bavaisis");
                     ProprieteUtilisateur("Acronyme de la société", "Mfb");
@@ -204,6 +208,17 @@ namespace InfosProjet
             Lot = s;
             Lot = Lot.Replace("Lot", "");
             Lot = Lot.Replace("lot", "").Trim();
+        }
+
+        public static void RemplirArticle(string s)
+        {
+            var t = s.Split(new String[] { " " }, StringSplitOptions.None);
+            if(t.Length > 0)
+            {
+                var a = t[0];
+                if (char.IsDigit(a[0]))
+                    Article = a;
+            }
         }
 
         public static void RemplirT(ref String[] t, int i, ref String s)
