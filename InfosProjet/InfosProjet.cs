@@ -74,6 +74,11 @@ namespace InfosProjet
 
                 // Rècupère les infos
 
+                //  Projet
+                //      - N3 Client
+                //          - N2 Chantier ?Lot
+                //              - N1 Lot
+                //                  - N0 ?Article dans le nom du projet
                 if (!String.IsNullOrEmpty(NomDossierN3))
                 {
                     RemplirClient(NomDossierN3);
@@ -82,17 +87,26 @@ namespace InfosProjet
                         RemplirLot(NomDossierN1);
                     RemplirArticle(NomDossierN0);
                 }
+                //  Projet
+                //      - N2 Client
+                //          - N1 Chantier ?Lot
+                //              - N0 ?Article dans le nom du projet
                 else if (!String.IsNullOrEmpty(NomDossierN2))
                 {
                     RemplirClient(NomDossierN2);
                     RemplirChantier(NomDossierN1);
                     RemplirArticle(NomDossierN0);
                 }
+                //  Projet
+                //      - N1 Client
+                //          - N0 Chantier ? Lot
                 else if (!String.IsNullOrEmpty(NomDossierN1))
                 {
                     RemplirClient(NomDossierN1);
                     RemplirChantier(NomDossierN0);
                 }
+                //  Projet
+                //      - N0 Client
                 else
                 {
                     RemplirClient(NomDossierN0);
