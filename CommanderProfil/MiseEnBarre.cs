@@ -45,8 +45,9 @@ namespace CommanderProfils
             }
         }
 
-        public void Calculer()
+        public String Calculer(String NomFichier)
         {
+            String CheminFichier = null;
             try
             {
                 //String NomFichier = "MiseEnBarre";
@@ -83,7 +84,7 @@ namespace CommanderProfils
                         break;
                 }
 
-                CheminFichier = Path.GetTempFileName();
+                CheminFichier = Path.Combine(Path.GetTempPath(), NomFichier + ".txt");
 
                 StreamWriter s = new StreamWriter(CheminFichier);
                 s.Write(Complet);
@@ -95,7 +96,10 @@ namespace CommanderProfils
             catch (Exception e)
             {
                 Log.Message(new Object[] { e });
+                CheminFichier = null;
             }
+
+            return CheminFichier;
         }
 
         private class Element

@@ -131,7 +131,20 @@ namespace CommanderProfils
                     );
             }
 
-            MiseEnBarre.Calculer();
+            var pdmOidDoc = Ts.Documents.GetPdmObject(docId);
+            var parent = Ts.Pdm.GetOwner(pdmOidDoc);
+            var rev = Ts.Pdm.GetMajorRevisionText(Ts.Pdm.GetLastMajorRevision(pdmOidDoc));
+            var nom = "Commande profil - Ind " + rev;
+
+
+
+            var fichier = MiseEnBarre.Calculer(nom);
+
+            if (fichier != null)
+            {
+                var fichierTexte = Ts.Pdm.ImportFile(fichier, parent, nom);
+                Ts.Pdm.SetName(fichierTexte, nom);
+            }
 
             StopTs();
         }
