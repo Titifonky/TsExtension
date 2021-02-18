@@ -82,7 +82,7 @@ namespace CommanderProfils
                     case "$TopSolid.Cad.Design.DB.Materials":
                         switch (cd.Name)
                         {
-                            case "Description":
+                            case "Name":
                                 idMatiere = i; break;
                         }
                         break;
@@ -115,6 +115,8 @@ namespace CommanderProfils
 
             var MiseEnBarre = new MiseEnBarre(LgMax);
 
+            
+
             foreach (var idLigne in rc)
             {
                 Bms.GetRowContents(docId, idLigne, out List<Property> ListeProp, out List<String> ListeTexte);
@@ -136,12 +138,20 @@ namespace CommanderProfils
             var rev = Ts.Pdm.GetMajorRevisionText(Ts.Pdm.GetLastMajorRevision(pdmOidDoc));
             var nom = "Commande profil - Ind " + rev;
 
-
-
             var fichier = MiseEnBarre.Calculer(nom);
 
             if (fichier != null)
             {
+                Ts.Pdm.GetConstituents(parent, out  _, out List<PdmObjectId> listeDocuments);
+
+                var listeDelete = new List<PdmObjectId>();
+
+                foreach (var f in listeDocuments)
+                    if (Ts.Pdm.GetName(f) == nom) listeDelete.Add(f);
+
+                if(listeDelete.Count > 0)
+                    Ts.Pdm.DeleteSeveral(listeDelete);
+
                 var fichierTexte = Ts.Pdm.ImportFile(fichier, parent, nom);
                 Ts.Pdm.SetName(fichierTexte, nom);
             }

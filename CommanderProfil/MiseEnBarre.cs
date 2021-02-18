@@ -370,7 +370,7 @@ namespace CommanderProfils
 
                 foreach (var Materiau in _dic.Keys)
                 {
-                    text += "\r\n" + Materiau;
+                    text += Materiau;
                     var DicMat = _dic[Materiau];
 
                     foreach (var Prof in DicMat.Keys)
