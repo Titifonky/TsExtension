@@ -51,7 +51,7 @@ namespace CommanderProfils
 
                 if (Ts.Pdm.SearchPropertyDefinitionInfo(cd, out string dn, out string n, out _) &&
                     dn == "Document"
-                    && n == "Description nomenclature du produit")
+                    && n == "Description du produit")
                 {
                     idProfil = i;
                     continue;
@@ -89,8 +89,8 @@ namespace CommanderProfils
                     case "$TopSolid.Kernel.TX.Properties":
                         switch (cd.Name)
                         {
-                            case "Description":
-                                idProfil = i; break;
+                            //case "Description":
+                            //    idProfil = i; break;
                             case "Length":
                                 idLg = i; break;
                         }
@@ -153,7 +153,6 @@ namespace CommanderProfils
                     Ts.Pdm.DeleteSeveral(listeDelete);
 
                 var fichierTexte = Ts.Pdm.ImportFile(fichier, parent, nom);
-                Ts.Pdm.SetName(fichierTexte, nom);
             }
 
             StopTs();
