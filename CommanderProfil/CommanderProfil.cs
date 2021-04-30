@@ -128,8 +128,8 @@ namespace CommanderProfils
                     idMatiere < 0 ? "" : ListeTexte[idMatiere],
                     idProfil < 0 ? "" : ListeTexte[idProfil],
                     idLg < 0 ? -1 : (String.IsNullOrEmpty(ListeTexte[idLg]) ? "0" : ListeTexte[idLg]).SupprimerUnites().eToDouble(),
-                    idA < 0 ? -1 : (String.IsNullOrEmpty(ListeTexte[idA]) ? "0" : ListeTexte[idA]).SupprimerUnites().eToDouble(),
-                    idB < 0 ? -1 : (String.IsNullOrEmpty(ListeTexte[idB]) ? "0" : ListeTexte[idB]).SupprimerUnites().eToDouble()
+                    idA < 0 ? 0 : (String.IsNullOrEmpty(ListeTexte[idA]) ? "0" : ListeTexte[idA]).SupprimerUnites().eToDouble(),
+                    idB < 0 ? 0 : (String.IsNullOrEmpty(ListeTexte[idB]) ? "0" : ListeTexte[idB]).SupprimerUnites().eToDouble()
                     );
             }
 

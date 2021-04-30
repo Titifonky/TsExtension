@@ -1,17 +1,13 @@
-﻿using System;
+﻿using LogDebugging;
+using Outils;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TopSolid.Cad.Design.Automating;
 using TopSolid.Kernel.Automating;
-using Outils;
-using LogDebugging;
 
 namespace InfosProjet
 {
     using Ts = TopSolidHost;
-    using Tsd = TopSolidDesignHost;
 
     class InfosProjet : BoutonBase
     {
@@ -124,6 +120,8 @@ namespace InfosProjet
 
                     TopSolidHost.Documents.EnsureIsDirty(ref docId);
 
+                    Boolean PropArchi = false;
+
                     foreach (var ide in Ts.Parameters.GetParameters(docId))
                     {
                         var t = Ts.Elements.GetName(ide);
@@ -140,9 +138,19 @@ namespace InfosProjet
                                 Ts.Parameters.SetTextValue(ide, NomChantier); break;
                             case "$TopSolid.Kernel.TX.Properties.PartNumber":
                                 Ts.Parameters.SetTextValue(ide, NoChantier); break;
+                            case "Architecte":
+                                PropArchi = true; break;
                             default:
                                 break;
                         }
+                    }
+                    if (!PropArchi)
+                    {
+
+                        String Architecte = "";
+                        Interaction.InputBox("Cabinet d'architecte", "Architecte :", ref Architecte);
+                        ElementId idArchi = Ts.Parameters.CreateTextParameter(docId, Architecte);
+                        Ts.Elements.SetName(idArchi, "Architecte");
                     }
 
                     TopSolidHost.Application.EndModification(true, true);
