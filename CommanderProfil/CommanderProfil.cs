@@ -11,7 +11,7 @@ namespace CommanderProfils
     using Ts = TopSolidHost;
     using Tsd = TopSolidDesignHost;
 
-    class CommanderProfil : BoutonBase
+    public class CommanderProfil : BoutonBase
     {
         static void Main(string[] args)
         {
@@ -93,6 +93,8 @@ namespace CommanderProfils
                             //    idProfil = i; break;
                             case "Length":
                                 idLg = i; break;
+                            case "Code":
+                                idProfil = i; break;
                         }
                         break;
                     default:

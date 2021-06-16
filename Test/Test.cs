@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TopSolid.Kernel.Automating;
+using TopSolid.Kernel.TX;
 
 namespace Test
 {
@@ -20,15 +21,30 @@ namespace Test
 
             if (docId.IsEmpty) return;
 
-            var typeDoc = TopSolidHost.Documents.GetTypeFullName(docId);
+            try
+            {
+                Log.Message("Modification");
 
-            System.Windows.Forms.MessageBox.Show(typeDoc);
+                var doc = TopSolid.Kernel.TX.Documents.DocumentStore.EditedDocument;
 
-            MajPropriete("Document", "Repere", "Document", "No");
-            MajPropriete("Document", "Description courte", "Document", "Description courte du produit");
-            MajPropriete("Document", "Description nomenclature", "Document", "Description nomenclature du produit");
-            MajPropriete("Document", "Description du matériau", "Document", "Description du produit");
-            MajPropriete("Document", "Type de matériau", "Document", "Type de produit");
+                System.Windows.Forms.MessageBox.Show(doc.LocalizedName);
+            }
+            catch (Exception e)
+            {
+                Log.Message(e);
+            }
+
+            
+
+            //var typeDoc = TopSolidHost.Documents.GetTypeFullName(docId);
+
+            //System.Windows.Forms.MessageBox.Show(typeDoc);
+
+            //MajPropriete("Document", "Repere", "Document", "No");
+            //MajPropriete("Document", "Description courte", "Document", "Description courte du produit");
+            //MajPropriete("Document", "Description nomenclature", "Document", "Description nomenclature du produit");
+            //MajPropriete("Document", "Description du matériau", "Document", "Description du produit");
+            //MajPropriete("Document", "Type de matériau", "Document", "Type de produit");
 
             StopTs();
         }

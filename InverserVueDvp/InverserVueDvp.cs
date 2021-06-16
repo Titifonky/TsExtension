@@ -2,18 +2,16 @@
 using Outils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 using TopSolid.Cad.Design.Automating;
 using TopSolid.Kernel.Automating;
 
-namespace MajProprietes
+namespace InverserVueDvp
 {
     using Ts = TopSolidHost;
     using Tsd = TopSolidDesignHost;
 
-    public class MajProprietes : BoutonBase
+    public class InverserVueDvp : BoutonBase
     {
         private static DocumentId docId;
 
@@ -25,6 +23,29 @@ namespace MajProprietes
 
             docId = Dcs.EditedDocument;
 
+            var l = Ts.Operations.GetOperations(docId);
+
+            ElementId? TmpEidDvp = null;
+
+            foreach (var eid in l)
+            {
+                if(Ts.Elements.GetTypeFullName(eid) == "TopSolid.Cad.Design.DB.SheetMetal.Unfolding.UnfoldingResultOperation")
+                {
+                    TmpEidDvp = eid;
+                    break;
+                }
+            }
+
+            if (TmpEidDvp == null) return;
+
+            ElementId eidDvp = (ElementId)TmpEidDvp;
+
+            Log.Message(Ts.Elements.GetName(eidDvp));
+
+            var tst = Ts.Entities.GetOccurrenceDefinition(eidDvp);
+
+            Log.Message(tst != null);
+
             if (!Ts.Application.StartModification("My Action", false)) return;
 
             try
@@ -33,12 +54,7 @@ namespace MajProprietes
 
                 Ts.Documents.EnsureIsDirty(ref docId);
 
-                Tsd.Parts.SetPhysicalPropertiesManagementRefreshAuto(docId, true);
-                Tsd.Parts.SetMassPropertyManagement(docId, true, null);
-                Tsd.Parts.SetCenterOfMassPropertyManagement(docId, true, null);
-
-                Tsd.Parts.SetSurfaceAreaPropertyManagement(docId, true, null);
-                Tsd.Parts.SetVolumePropertyManagement(docId, true, null);
+                
 
                 Ts.Application.EndModification(true, true);
             }

@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MajProprietes", "MajProprietes\MajProprietes.csproj", "{4AAFBD6C-A417-48E8-AD08-AAC10080B13D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadrerVueDvp", "CadrerVueDvp\CadrerVueDvp.csproj", "{2826A33C-81A6-4331-81A9-5DE7D36276B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InverserVueDvp", "InverserVueDvp\InverserVueDvp.csproj", "{4CD0975D-9483-4DF8-B143-CD4571E7EA6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{4AAFBD6C-A417-48E8-AD08-AAC10080B13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AAFBD6C-A417-48E8-AD08-AAC10080B13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AAFBD6C-A417-48E8-AD08-AAC10080B13D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2826A33C-81A6-4331-81A9-5DE7D36276B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2826A33C-81A6-4331-81A9-5DE7D36276B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2826A33C-81A6-4331-81A9-5DE7D36276B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2826A33C-81A6-4331-81A9-5DE7D36276B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CD0975D-9483-4DF8-B143-CD4571E7EA6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CD0975D-9483-4DF8-B143-CD4571E7EA6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CD0975D-9483-4DF8-B143-CD4571E7EA6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CD0975D-9483-4DF8-B143-CD4571E7EA6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

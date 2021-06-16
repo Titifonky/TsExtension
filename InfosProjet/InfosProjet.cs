@@ -9,7 +9,7 @@ namespace InfosProjet
 {
     using Ts = TopSolidHost;
 
-    class InfosProjet : BoutonBase
+    public class InfosProjet : BoutonBase
     {
         private static DocumentId docId;
 
@@ -112,13 +112,13 @@ namespace InfosProjet
 
                 // Propriétés standard
                 //===============================================================================
-                if (!TopSolidHost.Application.StartModification("My Action", false)) return;
+                if (!Ts.Application.StartModification("My Action", false)) return;
 
                 try
                 {
                     Log.Message("Modification");
 
-                    TopSolidHost.Documents.EnsureIsDirty(ref docId);
+                    Ts.Documents.EnsureIsDirty(ref docId);
 
                     Boolean PropArchi = false;
 
@@ -153,35 +153,35 @@ namespace InfosProjet
                         Ts.Elements.SetName(idArchi, "Architecte");
                     }
 
-                    TopSolidHost.Application.EndModification(true, true);
+                    Ts.Application.EndModification(true, true);
                 }
                 catch (Exception e)
                 {
                     Log.Message(e);
-                    TopSolidHost.Application.EndModification(false, false);
+                    Ts.Application.EndModification(false, false);
                 }
 
                 // Propriétés utilisateur
                 //===============================================================================
-                if (!TopSolidHost.Application.StartModification("My Action", false)) return;
+                if (!Ts.Application.StartModification("My Action", false)) return;
 
                 try
                 {
                     Log.Message("Modification");
 
-                    TopSolidHost.Documents.EnsureIsDirty(ref docId);
+                    Ts.Documents.EnsureIsDirty(ref docId);
 
                     ProprieteUtilisateur("Article", Article);
                     ProprieteUtilisateur("Lot", Lot);
                     ProprieteUtilisateur("Intitulé de la société", "Métallerie Ferronnerie du Bavaisis");
                     ProprieteUtilisateur("Acronyme de la société", "Mfb");
 
-                    TopSolidHost.Application.EndModification(true, true);
+                    Ts.Application.EndModification(true, true);
                 }
                 catch (Exception e)
                 {
                     Log.Message(e);
-                    TopSolidHost.Application.EndModification(false, false);
+                    Ts.Application.EndModification(false, false);
                 }
             }
             catch (Exception e)
@@ -194,19 +194,19 @@ namespace InfosProjet
 
         public static void ProprieteUtilisateur(String prop, String valeur)
         {
-            PdmObjectId oidProp = TopSolidHost.Pdm.SearchDocumentByName(PdmObjectId.Empty, prop)[0];
+            PdmObjectId oidProp = Ts.Pdm.SearchDocumentByName(PdmObjectId.Empty, prop)[0];
             if (oidProp.IsEmpty) return;
 
-            DocumentId didProp = TopSolidHost.Documents.GetDocument(oidProp);
+            DocumentId didProp = Ts.Documents.GetDocument(oidProp);
             if (didProp.IsEmpty) return;
 
-            ElementId eidParam = TopSolidHost.Parameters.SearchUserPropertyParameter(docId, didProp);
+            ElementId eidParam = Ts.Parameters.SearchUserPropertyParameter(docId, didProp);
             if (eidParam.IsEmpty)
-                eidParam = TopSolidHost.Parameters.CreateUserPropertyParameter(docId, didProp);
+                eidParam = Ts.Parameters.CreateUserPropertyParameter(docId, didProp);
 
             if (eidParam.IsEmpty) return;
 
-            TopSolidHost.Parameters.SetTextValue(eidParam, valeur);
+            Ts.Parameters.SetTextValue(eidParam, valeur);
         }
 
         public static void RemplirClient(String s)

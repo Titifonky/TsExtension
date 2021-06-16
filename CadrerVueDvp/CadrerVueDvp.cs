@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using TopSolid.Cad.Design.Automating;
 using TopSolid.Kernel.Automating;
 
-namespace MajProprietes
+namespace CadrerVueDvp
 {
     using Ts = TopSolidHost;
     using Tsd = TopSolidDesignHost;
 
-    public class MajProprietes : BoutonBase
+    public class CadrerVueDvp : BoutonBase
     {
         private static DocumentId docId;
 
@@ -33,12 +33,15 @@ namespace MajProprietes
 
                 Ts.Documents.EnsureIsDirty(ref docId);
 
-                Tsd.Parts.SetPhysicalPropertiesManagementRefreshAuto(docId, true);
-                Tsd.Parts.SetMassPropertyManagement(docId, true, null);
-                Tsd.Parts.SetCenterOfMassPropertyManagement(docId, true, null);
+                var av = Ts.Visualization3D.GetActiveView(docId);
+                Ts.Visualization3D.ZoomToFitView(docId, av);
 
-                Tsd.Parts.SetSurfaceAreaPropertyManagement(docId, true, null);
-                Tsd.Parts.SetVolumePropertyManagement(docId, true, null);
+                var tc = Ts.Visualization3D.GetTopCamera(docId);
+                Ts.Visualization3D.GetCameraDefinition(tc, out Point3D ep, out Direction3D dir, out Direction3D UpDir, out double angle, out double rayon);
+                Ts.Visualization3D.SetViewCamera(docId, av, ep, dir, UpDir, angle, rayon);
+                Ts.Visualization3D.ZoomToFitView(docId, av);
+
+                Ts.Visualization3D.RedrawView(docId, av);
 
                 Ts.Application.EndModification(true, true);
             }
